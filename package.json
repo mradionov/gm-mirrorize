@@ -1,0 +1,24 @@
+{
+  "name": "gm-mirrorize",
+  "version": "0.0.1",
+  "description": "gm extension to mirror images",
+  "keywords": [
+    "gm",
+    "mirror",
+    "reflect",
+    "image",
+    "extenstion"
+  ],
+  "author": "Michael Radionov",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "devDependencies": {
+    "q": "~1.2.0"
+  },
+  "peerDependencies": {
+    "gm": "~1.17"
+  }
+}
