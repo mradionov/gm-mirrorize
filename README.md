@@ -12,6 +12,8 @@ Extension was implemented accroding to the [guide][ref_gm_ext], method called `m
 Extension works only with [ImageMagick][ref_ImageMagick], it **will not work** with [GraphicsMagick][ref_GraphicsMagick], which is default for [gm][ref_gm].
 If [ImageMagick][ref_ImageMagick] was not enabled, the method `mirrorize` will do nothing to the image.
 
+Supported version of [gm][ref_gm] is **>=1.3.2**.
+
 ### Description
 
 ```js
