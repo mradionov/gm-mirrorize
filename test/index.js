@@ -1,12 +1,16 @@
 'use strict';
 
+var version = require('gm').version;
+
 // load gm and extension itself
 // gm now works only with imagemagick
 var gm = require('gm').subClass({ imageMagick: true });
+
 var mirrorize = require('..');
 
-// use q for promises
+// tests dev dependencies
 var Q = require('q');
+var semver = require('semver');
 
 // core modules
 var fs = require('fs');
@@ -51,7 +55,6 @@ var colors = {
 };
 
 // gets a name of the color by rgb string like "255,0,0"
-// which is returned by "colorAt" function
 function toColorName(rgb) {
   var color = undefined;
   Object.keys(colors).some(function (name) {
@@ -61,6 +64,19 @@ function toColorName(rgb) {
     }
   });
   return color;
+}
+
+// extract rgb value from a string like "(  0,255,  0) #00FF00 lime",
+// the result will look like "(0,255,0)"
+function extractRGB(str) {
+  var pattern = /\(([\s]?[\s]?\d+[,]?)+\)/;
+  if (!pattern.test(str)) {
+    return str;
+  }
+  var match = pattern.exec(str)[0];
+  // remove whitespaces
+  var trim = match.replace(/\s/g, '');
+  return trim;
 }
 
 
@@ -175,19 +191,45 @@ function expectColors(sourcePath, colors) {
   return Q.all(outcomes);
 }
 
-// return color name (a key from 'colors' object like 'white') for pixel
+// return rgb-like string in format like "(255,0,255)"
+// for a given image point
 function colorAt(sourcePath, x, y) {
   return Q.promise(function (resolve, reject) {
     // get rgb for a position
     // http://www.imagemagick.org/discourse-server/viewtopic.php?t=19297
     var format = '%[fx:floor(255*u.r)],%[fx:floor(255*u.g)],%[fx:floor(255*u.b)]';
-    // crop image to one pixel at position 'x y'
-    // value will be a string like "0,0,255"
-    gm(sourcePath + '[1x1+' + x + '+' + y + ']')
-    .identify(format, function (err, value) {
-      if (err) { return reject(err); }
-      resolve(value);
-    });
+    // '[..] with filename was not supported below 1.12.0
+    if (semver.gt(version, '1.11.0')) {
+      // crop image to one pixel at position 'x y'
+      // value will be a string like "0,0,255"
+      gm(sourcePath + '[1x1+' + x + '+' + y + ']')
+      .identify(format, function (err, value) {
+        if (err) { return reject(err); }
+        resolve(value);
+      });
+    } else {
+      // because inline crop is not supported
+      // we should save crop result to a file
+      var pointSourcePath = sourcePath.replace(ext, '_' + x + '_' + y + ext);
+      // crop test image to a size of one point
+      gm(sourcePath)
+      .crop(1, 1, x, y)
+      .write(pointSourcePath, function (err) {
+        // then read properties for the point file
+        gm(pointSourcePath)
+        .identify(format, function (err, value) {
+          if (err) { return reject(err); }
+          // custom format is not supported for "identify" below 1.11.0
+          if (semver.gt(version, '1.10.0')) {
+            resolve(value);
+          } else {
+            // extract actual color
+            var rgb = extractRGB(value.Histogram['1']);
+            resolve(rgb);
+          }
+        });
+      });
+    }
   });
 }
 

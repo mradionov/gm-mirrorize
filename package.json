@@ -16,7 +16,8 @@
     "test": "node test"
   },
   "devDependencies": {
-    "q": "^1.2.0"
+    "q": "^1.2.0",
+    "semver": "^4.3.1"
   },
   "peerDependencies": {
     "gm": ">=1.3.2"
