@@ -287,6 +287,19 @@ initialize('original', 200, 200)
   size: '200x200'
 }))
 
+// call with disabled imagemagick, there should be no changes to the image
+.then(scenario('default without imagemagick', function (image) {
+  return image.options({ imageMagick: false }).mirrorize();
+}, {
+  colors: {
+    'yellow': ['50x50'],
+    'red': ['150x50'],
+    'green': ['50x150'],
+    'blue': ['150x150']
+  },
+  size: '200x200'
+}))
+
 .then(scenario('north', function (image) {
   return image.mirrorize('north');
 }, {
