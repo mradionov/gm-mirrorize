@@ -128,5 +128,5 @@ gm.prototype.mirrorize = function(direction) {
 
 module.exports = function () {
   throw new Error('Use "mirrorize" method on "gm" object, ' +
-                  'do not call this module it explicitly');
+                  'do not call this module explicitly');
 };
