@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/mradionov/gm-mirrorize"
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
   "scripts": {
     "test": "node test"
