@@ -101,3 +101,17 @@ npm test
 [ref_gm_ext]: https://github.com/aheckmann/gm/wiki/Extending-gm
 [ref_ImageMagick]: http://www.imagemagick.org/
 [ref_GraphicsMagick]: http://www.graphicsmagick.org/
+
+### License
+
+Copyright © Michael Radionov
+Copyright © Fred Weinhaus
+
+License terms are based on the original script license terms provided by Fred Weinhaus and can be found at http://www.fmwconcepts.com/imagemagick/mirrorize/index.php.
+
+This software and associated documentation files (the "Software") is available free of charge ONLY for non-commercial use.
+To use the Software in commercial (for-profit) environments or non-free applications, and also to modify, publish, distribute, sublicinse, incorporate into other software or reprogramming into another scripting languages, you must contact Fred Weinhaus for licensing arrangements ( contact information - http://www.fmwconcepts.com/imagemagick/index.php ).
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
